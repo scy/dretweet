@@ -1,0 +1,84 @@
+
+   dretweet - Direct Message Retweet
+   =================================
+
+dretweet is a small tool to periodically retrieve direct messages sent to a 
+Twitter[1] account. It will then send the messages on behalf of that account, 
+letting it look like someone would have written the tweet while logged in to 
+that account.
+
+This is useful for Twitter accounts that belong to a group or project. Since 
+only people that are being followed by an account can send it a direct 
+message, no additional authentication is needed.
+
+dretweet can be installed on any host that runs PHP 5 or higher. It is usually  
+run via a cron job.
+
+[1] http://twitter.com/
+
+
+ A b o u t   d r e t w e e t
+ ---------------------------
+
+dretweet was written by Tim 'Scytale' Weber and is licensed under the terms of 
+the X11 license, see the LICENSE file.
+
+This project is _active_, patches and ideas are encouraged.
+
+Project page:       http://scytale.name/proj/dretweet/
+Git repository:     git://github.com/scy/dretweet.git
+Twitter account:    http://twitter.com/dretweet
+     of Scytale:    http://twitter.com/Scytale
+
+
+ R e q u i r e m e n t s
+ -----------------------
+
+* PHP 5 or higher
+  * cURL extension
+  * SimpleXML extension
+
+
+ I n s t a l l a t i o n
+ -----------------------
+
+ - Get the source and unpack it somewhere. You can use "git clone 
+   git://github.com/scy/dretweet.git" if you want, that'll simplify updating 
+   later on.
+
+ - Copy config.php.dist to config.php and edit it to your needs.
+
+ - Make sure that dretweet.php gets called in regular intervals, for example 
+   by a cronjob.
+
+
+ F r e q u e n t l y   A s k e d   Q u e s t i o n s
+ ---------------------------------------------------
+
+ - What about multi-account support?
+
+   Yes, I'd like to have that, too. Either you'll wait until I find the time 
+   to implement it, or simply send me a patch.
+
+ - So everybody who is followed by the account dretweet posts to has the right 
+   to send new messages?
+
+   Yep.
+
+ - Could people send something like "LEAVE theoriginaladminsname" and take 
+   control over everything?
+
+   Yep. Trust the people, or don't follow them. Luckily, they cannot change 
+   the account's password, so you can still lock them out when they start 
+   doing nasty stuff.
+
+ - Would it be possible to ADD FEATURE X?
+
+   Most likely. However, my time is limited. You may ask for new features, but 
+   be prepared for "sorry, I'm currently not interested in implementing this". 
+   If you write the feature yourself and send a patch, the chance to have it 
+   included is much higher. ;)
+
+
+
+// vim: set fo+=nat tw=78 et ai: //
