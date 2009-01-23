@@ -2,7 +2,7 @@
 
 require_once('dretweet.conf.php');
 
-define('DRE_AGENT', 'dretweet 0.1');
+define('DRE_AGENT', 'dretweet 0.2');
 define('DRE_APIBASE', 'https://twitter.com/');
 define('DRE_DMURL', DRE_APIBASE . 'direct_messages.xml');
 define('DRE_UPDURL', DRE_APIBASE . 'statuses/update.xml');
@@ -18,7 +18,7 @@ function getCURL($url) {
 	$curl = curl_init($url);
 	curl_setopt($curl, CURLOPT_MUTE, true);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($curl, CURLOPT_USERAGENT, 'dretweet 0.1');
+	curl_setopt($curl, CURLOPT_USERAGENT, DRE_AGENT);
 	curl_setopt($curl, CURLOPT_USERPWD, $DRE_USER . ':' . $DRE_PASS);
 	curl_setopt($curl, CURLOPT_TIMEOUT, 20);
 	return ($curl);

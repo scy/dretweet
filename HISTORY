@@ -1,4 +1,16 @@
 
+  0.2  --  2009-01-23
+  ===================
+
+- Added source parameter (so Twitter now shows "from dretweet" in the meta 
+  information of our tweets).
+
+- Added multi-user support by using multiple config files. Your previous 
+  config file will not work, so please check out the provided example.conf and 
+  the README to see how the new format and file naming scheme looks like.
+
+
+
   0.1  --  2009-01-22
   ===================
 
