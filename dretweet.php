@@ -52,7 +52,7 @@ function postDMs($xml) {
 	foreach ($dms as $id => $text) {
 		$curl = getCURL(DRE_UPDURL);
 		curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, array('status' => $text));
+		curl_setopt($curl, CURLOPT_POSTFIELDS, array('status' => $text, 'source' => 'dretweet'));
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Expect:'));
 		$ret = curl_exec($curl);
 		handleFailure($curl, $ret);
