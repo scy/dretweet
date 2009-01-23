@@ -1,6 +1,7 @@
 <?php
 
-require_once('dretweet.conf.php');
+// Copyright 2009 Tim 'Scytale' Weber <http://scytale.name/>
+// Licensed under the X11 license, see the LICENSE file.
 
 define('DRE_AGENT', 'dretweet 0.2');
 define('DRE_APIBASE', 'https://twitter.com/');
