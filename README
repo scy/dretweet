@@ -46,9 +46,13 @@ Twitter account:    http://twitter.com/dretweet
    git://github.com/scy/dretweet.git" if you want, that'll simplify updating 
    later on.
 
- - Copy example.conf.php.dist to dreweet.conf.php and edit it to your needs. 
-   Soon you will be able to use any name you want, as dretweet will get 
-   multi-user support.
+ - Create a configuration file in dretweet's directory. The file can have any 
+   name you want, but it has to end in ".conf.php". A good idea is to use the 
+   user name it is for, e.g. scytale.conf.php. Have a look in example.conf to 
+   see the two variables you need to set.
+
+ - You can have any number of config files you want. dretweet will use them 
+   one after the other to query and post to multiple accounts.
 
  - Make sure that dretweet.php gets called in regular intervals, for example 
    by a cronjob.
@@ -56,11 +60,6 @@ Twitter account:    http://twitter.com/dretweet
 
  F r e q u e n t l y   A s k e d   Q u e s t i o n s
  ---------------------------------------------------
-
- - What about multi-account support?
-
-   Yes, I'd like to have that, too. Either you'll wait until I find the time 
-   to implement it, or simply send me a patch.
 
  - So everybody who is followed by the account dretweet posts to has the right 
    to send new messages?

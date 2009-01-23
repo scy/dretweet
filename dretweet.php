@@ -2,17 +2,16 @@
 
 require_once('dretweet.conf.php');
 
-@define('DRE_AGENT', 'dretweet 0.1');
-@define('DRE_APIBASE', 'https://twitter.com/');
-@define('DRE_DMURL', DRE_APIBASE . 'direct_messages.xml');
-@define('DRE_UPDURL', DRE_APIBASE . 'statuses/update.xml');
+define('DRE_AGENT', 'dretweet 0.1');
+define('DRE_APIBASE', 'https://twitter.com/');
+define('DRE_DMURL', DRE_APIBASE . 'direct_messages.xml');
+define('DRE_UPDURL', DRE_APIBASE . 'statuses/update.xml');
+define('DRE_CONFSUF', '.conf.php');
 
 if (!function_exists('curl_init'))
 	die("This PHP does not support cURL.\n");
 if (!function_exists('simplexml_load_string'))
 	die("This PHP does not support SimpleXML.\n");
-
-$lastid = (int)@file_get_contents($DRE_USER . '.lastid');
 
 function getCURL($url) {
 	global $DRE_USER, $DRE_PASS;
@@ -63,6 +62,19 @@ function postDMs($xml) {
 	}
 }
 
-postDMs(getDMs($lastid));
+$files = scandir('.');
+$csl = -1 * strlen(DRE_CONFSUF);
+foreach ($files as $file) {
+	if (substr($file, $csl) === DRE_CONFSUF) {
+		$DRE_USER = $DRE_PASS = '';
+		include($file);
+		if ($DRE_USER === '') {
+			echo("warning: $file does not specify \$DRE_USER, skipping.\n");
+			continue;
+		}
+		$lastid = (int)@file_get_contents($DRE_USER . '.lastid');
+		postDMs(getDMs($lastid));
+	}
+}
 
 ?>
