@@ -1,4 +1,13 @@
 
+  0.2.1  --  2009-01-23
+  =====================
+
+- Corrected an embarrassing error: I left the require_once() for the old 
+  config file in the code, causing dretweet to not work at all, except if you 
+  had your config named that way.
+
+
+
   0.2  --  2009-01-23
   ===================
 
