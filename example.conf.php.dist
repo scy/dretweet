@@ -1,0 +1,6 @@
+<?php
+
+$DRE_USER = 'Scytale';
+$DRE_PASS = 'supersecret';
+
+?>

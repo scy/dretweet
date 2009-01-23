@@ -1,6 +1,6 @@
 <?php
 
-require_once('config.php');
+require_once('dretweet.conf.php');
 
 @define('DRE_AGENT', 'dretweet 0.1');
 @define('DRE_APIBASE', 'https://twitter.com/');
@@ -12,14 +12,15 @@ if (!function_exists('curl_init'))
 if (!function_exists('simplexml_load_string'))
 	die("This PHP does not support SimpleXML.\n");
 
-$lastid = (int)@file_get_contents(DRE_USER . '.lastid');
+$lastid = (int)@file_get_contents($DRE_USER . '.lastid');
 
 function getCURL($url) {
+	global $DRE_USER, $DRE_PASS;
 	$curl = curl_init($url);
 	curl_setopt($curl, CURLOPT_MUTE, true);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_USERAGENT, 'dretweet 0.1');
-	curl_setopt($curl, CURLOPT_USERPWD, DRE_USER . ':' . DRE_PASS);
+	curl_setopt($curl, CURLOPT_USERPWD, $DRE_USER . ':' . $DRE_PASS);
 	curl_setopt($curl, CURLOPT_TIMEOUT, 20);
 	return ($curl);
 }
@@ -44,6 +45,7 @@ function getDMs($sinceid = null) {
 }
 
 function postDMs($xml) {
+	global $DRE_USER;
 	$dms = array();
 	foreach ($xml->direct_message as $dm) {
 		$dms[(int)($dm->id)] = (string)($dm->text);
@@ -57,7 +59,7 @@ function postDMs($xml) {
 		$ret = curl_exec($curl);
 		handleFailure($curl, $ret);
 		echo('Posted: ' . $text . "\n");
-		file_put_contents(DRE_USER . '.lastid', $id);
+		file_put_contents($DRE_USER . '.lastid', $id);
 	}
 }
 

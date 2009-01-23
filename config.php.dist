@@ -1,6 +1,0 @@
-<?php
-
-define('DRE_USER', 'Scytale');
-define('DRE_PASS', 'supersecret');
-
-?>

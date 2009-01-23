@@ -46,7 +46,9 @@ Twitter account:    http://twitter.com/dretweet
    git://github.com/scy/dretweet.git" if you want, that'll simplify updating 
    later on.
 
- - Copy config.php.dist to config.php and edit it to your needs.
+ - Copy example.conf.php.dist to dreweet.conf.php and edit it to your needs. 
+   Soon you will be able to use any name you want, as dretweet will get 
+   multi-user support.
 
  - Make sure that dretweet.php gets called in regular intervals, for example 
    by a cronjob.
