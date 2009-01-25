@@ -3,7 +3,7 @@
 // Copyright 2009 Tim 'Scytale' Weber <http://scytale.name/>
 // Licensed under the X11 license, see the LICENSE file.
 
-define('DRE_AGENT', 'dretweet 0.2.1');
+define('DRE_AGENT', 'dretweet 0.3 alpha');
 define('DRE_APIBASE', 'https://twitter.com/');
 define('DRE_DMURL', DRE_APIBASE . 'direct_messages.xml');
 define('DRE_UPDURL', DRE_APIBASE . 'statuses/update.xml');
@@ -45,20 +45,23 @@ function getDMs($sinceid = null) {
 }
 
 function postDMs($xml) {
-	global $DRE_USER;
+	global $DRE_USER, $DRE_ALLOW;
 	$dms = array();
 	foreach ($xml->direct_message as $dm) {
-		$dms[(int)($dm->id)] = (string)($dm->text);
+		$dms[(int)($dm->id)] = array(
+			'text' => (string)($dm->text),
+			'from' => (string)($dm->sender_screen_name),
+			);
 	}
 	ksort($dms, SORT_NUMERIC);
-	foreach ($dms as $id => $text) {
+	foreach ($dms as $id => $val) {
 		$curl = getCURL(DRE_UPDURL);
 		curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, array('status' => $text, 'source' => 'dretweet'));
+		curl_setopt($curl, CURLOPT_POSTFIELDS, array('status' => $val['text'], 'source' => 'dretweet'));
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Expect:'));
 		$ret = curl_exec($curl);
 		handleFailure($curl, $ret);
-		echo('Posted: ' . $text . "\n");
+		echo('Posted: ' . $val['text'] . "\n");
 		file_put_contents($DRE_USER . '.lastid', $id);
 	}
 }
@@ -68,6 +71,7 @@ $csl = -1 * strlen(DRE_CONFSUF);
 foreach ($files as $file) {
 	if (substr($file, $csl) === DRE_CONFSUF) {
 		$DRE_USER = $DRE_PASS = '';
+		$DRE_ALLOW = '.';
 		include($file);
 		if ($DRE_USER === '') {
 			echo("warning: $file does not specify \$DRE_USER, skipping.\n");
