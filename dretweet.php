@@ -55,13 +55,15 @@ function postDMs($xml) {
 	}
 	ksort($dms, SORT_NUMERIC);
 	foreach ($dms as $id => $val) {
-		$curl = getCURL(DRE_UPDURL);
-		curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, array('status' => $val['text'], 'source' => 'dretweet'));
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Expect:'));
-		$ret = curl_exec($curl);
-		handleFailure($curl, $ret);
-		echo('Posted: ' . $val['text'] . "\n");
+		if (preg_match($DRE_ALLOW, $val['from'])) {
+			$curl = getCURL(DRE_UPDURL);
+			curl_setopt($curl, CURLOPT_POST, true);
+			curl_setopt($curl, CURLOPT_POSTFIELDS, array('status' => $val['text'], 'source' => 'dretweet'));
+			curl_setopt($curl, CURLOPT_HTTPHEADER, array('Expect:'));
+			$ret = curl_exec($curl);
+			handleFailure($curl, $ret);
+			echo('Posted: ' . $val['text'] . "\n");
+		}
 		file_put_contents($DRE_USER . '.lastid', $id);
 	}
 }
@@ -71,7 +73,7 @@ $csl = -1 * strlen(DRE_CONFSUF);
 foreach ($files as $file) {
 	if (substr($file, $csl) === DRE_CONFSUF) {
 		$DRE_USER = $DRE_PASS = '';
-		$DRE_ALLOW = '.';
+		$DRE_ALLOW = '/./';
 		include($file);
 		if ($DRE_USER === '') {
 			echo("warning: $file does not specify \$DRE_USER, skipping.\n");
