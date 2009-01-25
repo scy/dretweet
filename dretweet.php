@@ -3,7 +3,7 @@
 // Copyright 2009 Tim 'Scytale' Weber <http://scytale.name/>
 // Licensed under the X11 license, see the LICENSE file.
 
-define('DRE_AGENT', 'dretweet 0.3 alpha');
+define('DRE_AGENT', 'dretweet 0.3');
 define('DRE_APIBASE', 'https://twitter.com/');
 define('DRE_DMURL', DRE_APIBASE . 'direct_messages.xml');
 define('DRE_UPDURL', DRE_APIBASE . 'statuses/update.xml');

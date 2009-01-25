@@ -1,4 +1,13 @@
 
+  0.3  --  2009-01-25
+  ===================
+
+- Added user whitelisting via $DRE_ALLOW. With it, you can limit the set of 
+  people who are allowed to post to an account further than just "everyone 
+  that account is following".
+
+
+
   0.2.1  --  2009-01-23
   =====================
 

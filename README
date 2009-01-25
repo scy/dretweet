@@ -49,7 +49,8 @@ Twitter account:    http://twitter.com/dretweet
  - Create a configuration file in dretweet's directory. The file can have any 
    name you want, but it has to end in ".conf.php". A good idea is to use the 
    user name it is for, e.g. scytale.conf.php. Have a look in example.conf to 
-   see the two variables you need to set.
+   see the two variables you need to set and how to configure additional 
+   settings like a "who is allowed to post" whitelist.
 
  - You can have any number of config files you want. dretweet will use them 
    one after the other to query and post to multiple accounts.
@@ -64,7 +65,8 @@ Twitter account:    http://twitter.com/dretweet
  - So everybody who is followed by the account dretweet posts to has the right 
    to send new messages?
 
-   Yep.
+   Yep, except if you limit the set of people further by using the $DRE_ALLOW 
+   variable. Have a look in example.conf to see how it works.
 
  - Could people send something like "LEAVE theoriginaladminsname" and take 
    control over everything?
