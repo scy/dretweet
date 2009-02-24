@@ -25,12 +25,13 @@ function getCURL($url) {
 	return ($curl);
 }
 
-function handleFailure($curl, $ret) {
+function handleFailure($curl, $ret, $more = '') {
+	$more = (($more) ? (" ($more)") : (''));
 	if ($ret === false)
-		throw new Exception("cURL failed miserably. Error " . curl_errno($curl) . ": " . curl_error($curl));
+		throw new Exception("cURL failed miserably. Error " . curl_errno($curl) . ": " . curl_error($curl) . $more);
 	$rc = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE);
 	if ($rc >= 400)
-		throw new Exception("HTTP $rc:\n$ret");
+		throw new Exception("HTTP $rc$more:\n$ret");
 }
 
 function getDMs($sinceid = null) {
@@ -58,10 +59,13 @@ function postDMs($xml) {
 		if (preg_match($DRE_ALLOW, $val['from'])) {
 			$curl = getCURL(DRE_UPDURL);
 			curl_setopt($curl, CURLOPT_POST, true);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, array('status' => $val['text'], 'source' => 'dretweet'));
+			curl_setopt($curl, CURLOPT_POSTFIELDS,
+				'status=' . rawurlencode($val['text']) . '&' .
+				'source=dretweet'
+			);
 			curl_setopt($curl, CURLOPT_HTTPHEADER, array('Expect:'));
 			$ret = curl_exec($curl);
-			handleFailure($curl, $ret);
+			handleFailure($curl, $ret, 'while posting: ' . $val['text']);
 			echo('Posted: ' . $val['text'] . "\n");
 		}
 		file_put_contents($DRE_USER . '.lastid', $id);
