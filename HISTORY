@@ -1,4 +1,20 @@
 
+  0.3.1  --  2009-02-24
+  =====================
+
+- Discovered a security issue in all previous versions: When a message started 
+  with an @ character (i.e. an "@reply"), PHP's cURL library was interpreting 
+  the characters after the @ as a file name to read the actual data from. This 
+  meant that a) dretweet could not send @replies and b) a malicious user could 
+  send something like "@.bash_history" to receive the contents of that file. 
+  The problem is fixed, everyone is urged to update. However, only users who 
+  are authorized to use dretweet are able to exploit this error at all.
+
+- When cURL fails posting a tweet, the error message now explicitly says which 
+  tweet failed.
+
+
+
   0.3  --  2009-01-25
   ===================
 
