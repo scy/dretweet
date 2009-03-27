@@ -1,4 +1,15 @@
 
+  0.3.2  --  2009-03-27
+  =====================
+
+- Some hours ago, Twitter decided to ignore the "since_id" parameter we pass 
+  to select only "new" DMs for some minutes. The result was that lots of 
+  recent DMs got posted again, which was quite spammy. Therefore we now check 
+  whether the Tweet ID of a DM is really actually larger than our since_id. 
+  This should eliminate the problem.
+
+
+
   0.3.1  --  2009-02-24
   =====================
 

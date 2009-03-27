@@ -3,7 +3,7 @@
 // Copyright 2009 Tim 'Scytale' Weber <http://scytale.name/>
 // Licensed under the X11 license, see the LICENSE file.
 
-define('DRE_AGENT', 'dretweet 0.3.1');
+define('DRE_AGENT', 'dretweet 0.3.2');
 define('DRE_APIBASE', 'https://twitter.com/');
 define('DRE_DMURL', DRE_APIBASE . 'direct_messages.xml');
 define('DRE_UPDURL', DRE_APIBASE . 'statuses/update.xml');
@@ -45,10 +45,14 @@ function getDMs($sinceid = null) {
 	return ($xml);
 }
 
-function postDMs($xml) {
+function postDMs($xml, $sinceid = null) {
 	global $DRE_USER, $DRE_ALLOW;
+	if ($sinceid === null)
+		$sinceid = 0;
 	$dms = array();
 	foreach ($xml->direct_message as $dm) {
+		if ($dm->id <= $sinceid)
+			continue;
 		$dms[(int)($dm->id)] = array(
 			'text' => (string)($dm->text),
 			'from' => (string)($dm->sender_screen_name),
@@ -84,7 +88,7 @@ foreach ($files as $file) {
 			continue;
 		}
 		$lastid = (int)@file_get_contents($DRE_USER . '.lastid');
-		postDMs(getDMs($lastid));
+		postDMs(getDMs($lastid), $lastid);
 	}
 }
 
