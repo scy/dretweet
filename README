@@ -82,6 +82,11 @@ Twitter account:    http://twitter.com/dretweet
    If you write the feature yourself and send a patch, the chance to have it 
    included is much higher. ;)
 
+ - Is dretweet "Twitpocalypse Safe"?
+
+   Yes, sir. Starting from 0.3.3 we're using floats instead of ints which 
+   leads to a lot more possible values.
+
 
 
 // vim: set fo+=nat tw=78 et ai: //

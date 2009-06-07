@@ -3,7 +3,7 @@
 // Copyright 2009 Tim 'Scytale' Weber <http://scytale.name/>
 // Licensed under the X11 license, see the LICENSE file.
 
-define('DRE_AGENT', 'dretweet 0.3.2');
+define('DRE_AGENT', 'dretweet 0.3.3');
 define('DRE_APIBASE', 'https://twitter.com/');
 define('DRE_DMURL', DRE_APIBASE . 'direct_messages.xml');
 define('DRE_UPDURL', DRE_APIBASE . 'statuses/update.xml');
@@ -35,7 +35,7 @@ function handleFailure($curl, $ret, $more = '') {
 }
 
 function getDMs($sinceid = null) {
-	$curl = getCURL(DRE_DMURL . (($sinceid == null) ? ('') : ('?since_id=' . (int)$sinceid)));
+	$curl = getCURL(DRE_DMURL . (($sinceid == null) ? ('') : ('?since_id=' . round($sinceid))));
 	$ret = curl_exec($curl);
 	handleFailure($curl, $ret);
 	$xml = simplexml_load_string($ret);
@@ -53,7 +53,7 @@ function postDMs($xml, $sinceid = null) {
 	foreach ($xml->direct_message as $dm) {
 		if ($dm->id <= $sinceid)
 			continue;
-		$dms[(int)($dm->id)] = array(
+		$dms[round($dm->id)] = array(
 			'text' => (string)($dm->text),
 			'from' => (string)($dm->sender_screen_name),
 			);
@@ -87,7 +87,7 @@ foreach ($files as $file) {
 			echo("warning: $file does not specify \$DRE_USER, skipping.\n");
 			continue;
 		}
-		$lastid = (int)@file_get_contents($DRE_USER . '.lastid');
+		$lastid = round(@file_get_contents($DRE_USER . '.lastid'));
 		postDMs(getDMs($lastid), $lastid);
 	}
 }

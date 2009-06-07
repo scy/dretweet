@@ -1,4 +1,13 @@
 
+  0.3.3  --  2009-06-07
+  =====================
+
+- Since the Tweet ID will soon be larger than the maximum value of PHP’s 
+  integers, we are now using float values internally. This should protect us 
+  from the “Twitpocalypse“.
+
+
+
   0.3.2  --  2009-03-27
   =====================
 
